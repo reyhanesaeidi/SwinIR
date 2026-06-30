@@ -414,9 +414,10 @@ class BasicLayer(nn.Module):
                 x = checkpoint.checkpoint(blk, x, x_size)
             else:
                 x = blk(x, x_size)
+        x = self.overlap_attn(x, x_size, params['rpi_oca'])
         if self.downsample is not None:
             x = self.downsample(x)
-        return x
+        return x    
 
     def extra_repr(self) -> str:
         return f"dim={self.dim}, input_resolution={self.input_resolution}, depth={self.depth}"
