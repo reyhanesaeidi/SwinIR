@@ -388,6 +388,20 @@ class BasicLayer(nn.Module):
                                  norm_layer=norm_layer)
             for i in range(depth)])
 
+         # OCAB
+        self.overlap_attn = OCAB(
+                            dim=dim,
+                            input_resolution=input_resolution,
+                            window_size=window_size,
+                            overlap_ratio=overlap_ratio,
+                            num_heads=num_heads,
+                            qkv_bias=qkv_bias,
+                            qk_scale=qk_scale,
+                            mlp_ratio=mlp_ratio,
+                            norm_layer=norm_layer
+                            )
+             
+
         # patch merging layer
         if downsample is not None:
             self.downsample = downsample(input_resolution, dim=dim, norm_layer=norm_layer)
